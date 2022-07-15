@@ -1,0 +1,5 @@
+{
+    "clangd.arguments": [
+        "-extra-arg-before=-xc++"
+    ]
+}
