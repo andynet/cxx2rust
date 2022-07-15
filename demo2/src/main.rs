@@ -2,7 +2,7 @@
 mod ffi {
     // C++ types and signatures exposed to Rust.
     unsafe extern "C++" {
-        include!("demo/include/intvec.h");
+        include!("demo2/include/intvec.h");
 
         fn print_hello();
     }

@@ -1,5 +1,5 @@
-#include "demo/include/intvec.h"
-#include "demo/src/main.rs.h"
+#include "demo2/include/intvec.h"
+#include "demo2/src/main.rs.h"
 #include <iostream>
 
 namespace org {
