@@ -4,10 +4,8 @@ mod ffi {
     unsafe extern "C++" {
         include!("demo2/include/intvec.h");
 
-        fn print_hello();
-
-        type int_vector;
-        fn new_int_vector(size: u64, default_val: u64, width: u64) -> UniquePtr<int_vector>;
+        type IntVector;
+        fn new_int_vector(size: u64, default_val: u64, width: u64) -> UniquePtr<IntVector>;
         fn size(&self) -> u64;
         fn width(&self) -> u8;
     }
@@ -28,5 +26,4 @@ fn main() {
     //     println!("v[{}]={}", i, v[i]);
     // }
 
-    ffi::print_hello();
 }
