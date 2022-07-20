@@ -1,46 +1,29 @@
 #[cxx::bridge]
-mod ffi {
+mod sdslrs {
     unsafe extern "C++" {
         include!("demo2/include/intvec.h");
 
         type IntVector;
 
-        fn new_intvec() -> UniquePtr<IntVector>;
-        fn test_ptr(pv: UniquePtr<IntVector>);
+        fn new_intvec(size: u64, defval: u64, width: u8) -> UniquePtr<IntVector>;
+        fn size(&self) -> u64;
+        fn width(&self) -> u8;
+
+        fn test_ptr(v: &UniquePtr<IntVector>);
     }
 }
 
 fn main() {
-    let client = ffi::new_intvec();
-    ffi::test_ptr(client);
+    let v = sdslrs::new_intvec(20, 0, 4);
+    sdslrs::test_ptr(&v);
+
+    // for i in 0..size {
+    //     v[i] = i;
+    // }
+
+    println!("created int_vector<> containing {} {}-bit integers", v.size(), v.width());
+
+    // for i in 0..size {
+    //     println!("v[{}]={}", i, v[i]);
+    // }
 }
-
-// #[cxx::bridge(namespace = "org::intvec")]
-// mod ffi {
-//     // C++ types and signatures exposed to Rust.
-//     unsafe extern "C++" {
-//         include!("demo2/include/intvec.h");
-
-//         type IntVector;
-//         fn new_int_vector(size: u64, default_val: u64, width: u64) -> UniquePtr<IntVector>;
-//         // fn size(&self) -> u64;
-//         // fn width(&self) -> u8;
-//     }
-// }
-
-// fn main() {
-//     let size: u64 = 10;
-//     let width: u64 = 5;
-//     let _v = ffi::new_int_vector(size, 0, width);
-
-//     // for i in 0..size {
-//     //     v[i] = i;
-//     // }
-
-//     // println!("created int_vector<> containing {} {}-bit integers", v.size(), v.width());
-
-//     // for i in 0..size {
-//     //     println!("v[{}]={}", i, v[i]);
-//     // }
-
-// }

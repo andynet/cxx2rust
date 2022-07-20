@@ -1,33 +1,35 @@
-// #include "demo2/include/intvec.h"
-// #include <iostream>
-// #include <sdsl/int_vector.hpp>
-
-// namespace org {
-// namespace intvec {
-
-// std::unique_ptr<IntVector> new_int_vector(uint64_t size, uint64_t value, uint64_t width) {
-//     cout << size << " " << value << " " << width << endl;
-//     sdsl::int_vector<> v(size, value, int_width);
-//     return std::unique_ptr<IntVector>(v);
-// }
-
-// } // namespace intvec
-// } // namespace org
-
 #include <iostream>
 #include <sdsl/int_vector.hpp>
 #include "demo2/include/intvec.h"
 
-IntVector::IntVector() {
-    v = sdsl::int_vector<>(8, 0, 2);
+class IntVector::Impl {
+    friend IntVector;
+    sdsl::int_vector<> v;
+};
+
+IntVector::IntVector(uint64_t s, uint64_t d, uint8_t w) {
+    pimpl = std::shared_ptr<IntVector::Impl>(new IntVector::Impl());
+    pimpl->v = sdsl::int_vector<>(s, d, w);
 }
 
-std::unique_ptr<IntVector> new_intvec() {
-  return std::unique_ptr<IntVector>(new IntVector());
+uint64_t IntVector::size() const {
+    return pimpl->v.size();
 }
 
-void test_ptr(std::unique_ptr<IntVector> pv) {
-    sdsl::int_vector<> v = (*pv).v;
+uint8_t IntVector::width() const {
+    return (int)pimpl->v.width();
+}
+
+sdsl::int_vector<> IntVector::get_vector() const {
+    return pimpl->v;
+}
+
+std::unique_ptr<IntVector> new_intvec(uint64_t size, uint64_t defval, uint8_t width) {
+    return std::unique_ptr<IntVector>(new IntVector(size, defval, width));
+}
+
+void test_ptr(const std::unique_ptr<IntVector>& pv) {
+    sdsl::int_vector<> v = (*pv).get_vector();
 
     for (size_t i=0; i<v.size(); i++) {
         v[i] = i;
