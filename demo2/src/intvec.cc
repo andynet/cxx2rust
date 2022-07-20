@@ -18,26 +18,16 @@
 #include <sdsl/int_vector.hpp>
 #include "demo2/include/intvec.h"
 
-IntVector::IntVector() {}
+IntVector::IntVector() {
+    v = sdsl::int_vector<>(8, 0, 2);
+}
 
 std::unique_ptr<IntVector> new_intvec() {
   return std::unique_ptr<IntVector>(new IntVector());
 }
 
-sdsl::int_vector<> test2() {
-    sdsl::int_vector<> v(5, 0, 5);
-    return v;
-}
-
-std::unique_ptr<sdsl::int_vector<> > new_intvec2() {
-    std::unique_ptr<sdsl::int_vector<> > pv(new sdsl::int_vector<>(8, 0, 6));
-    return pv;
-}
-
-void test(uint64_t _size, uint64_t _width) {
-    // sdsl::int_vector<> v(size, 0, width);
-    std::unique_ptr<sdsl::int_vector<> > pv = new_intvec2();
-    sdsl::int_vector<> v = *pv;
+void test_ptr(std::unique_ptr<IntVector> pv) {
+    sdsl::int_vector<> v = (*pv).v;
 
     for (size_t i=0; i<v.size(); i++) {
         v[i] = i;

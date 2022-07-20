@@ -3,14 +3,14 @@
 #include <sdsl/int_vector.hpp>
 
 class IntVector {
-public:
+    public:
+    sdsl::int_vector<> v;
+
     IntVector();
 };
 
 std::unique_ptr<IntVector> new_intvec();
-
-void test(uint64_t size, uint64_t width);
-
+void test_ptr(std::unique_ptr<IntVector>);
 
 // #pragma once
 // #include "rust/cxx.h"

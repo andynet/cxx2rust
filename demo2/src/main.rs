@@ -6,13 +6,13 @@ mod ffi {
         type IntVector;
 
         fn new_intvec() -> UniquePtr<IntVector>;
-        fn test(size: u64, width: u64);
+        fn test_ptr(pv: UniquePtr<IntVector>);
     }
 }
 
 fn main() {
-    let _client = ffi::new_intvec();
-    ffi::test(10, 5);
+    let client = ffi::new_intvec();
+    ffi::test_ptr(client);
 }
 
 // #[cxx::bridge(namespace = "org::intvec")]
