@@ -4,6 +4,7 @@ fn main() {
         .flag_if_supported("-std=c++14")
         .compile("intvec");
 
+    println!("cargo:rustc-link-lib=sdsl");
     println!("cargo:rerun-if-changed=src/main.rs");
     println!("cargo:rerun-if-changed=src/intvec.cc");
     println!("cargo:rerun-if-changed=include/intvec.h");

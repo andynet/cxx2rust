@@ -1,23 +1,25 @@
 #pragma once
-#include "rust/cxx.h"
 #include <memory>
-
-namespace org {
-namespace intvec {
+#include <sdsl/int_vector.hpp>
 
 class IntVector {
 public:
-    IntVector(uint64_t size, uint64_t default_value, uint8_t int_width);
-    uint64_t size() const;
-    uint8_t width() const;
-
-private:
-    class impl;
-    std::shared_ptr<impl> impl;
+    IntVector();
 };
 
-// size: u64, default_val: u64, width: u64
-std::unique_ptr<IntVector> new_int_vector(uint64_t, uint64_t, uint64_t);
+std::unique_ptr<IntVector> new_intvec();
 
-} // namespace intvec
-} // namespace org
+void test(uint64_t size, uint64_t width);
+
+
+// #pragma once
+// #include "rust/cxx.h"
+// #include <memory>
+
+// namespace org {
+// namespace intvec {
+
+// std::unique_ptr<IntVector> new_int_vector(uint64_t size, uint64_t value, uint64_t width);
+
+// } // namespace intvec
+// } // namespace org
